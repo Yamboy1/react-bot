@@ -7,9 +7,14 @@ class Connect4Command extends Component {
     constructor(props) {
         super(props);
 
-        const matrix = Array(6).fill(
-            Array(7).fill(0)
-        );
+        const matrix = [
+            [0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0],
+            [0,0,0,2,0,0,0],
+            [0,0,0,2,0,0,0],
+            [0,0,0,2,0,0,0],
+            [1,1,1,2,0,0,0]
+        ]
 
         this.state = {
             matrix

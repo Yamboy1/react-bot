@@ -18,7 +18,7 @@ class Message extends Component {
         if (this.props.channel) {
             const content = htmlDecode(renderToStaticMarkup(<>
                 {React.Children.toArray(this.props.children)}
-            </>));
+            </>)).trim();
 
             this.setState({
                 message: await this.props.channel.send(content)
@@ -50,7 +50,7 @@ class Message extends Component {
         if (this.state.message) {
             const content = htmlDecode(renderToStaticMarkup(<>
                 {React.Children.toArray(this.props.children)}
-            </>));
+            </>)).trim();
 
             if (content !== this.state.message.content) {
                 await this.state.message.edit(content);

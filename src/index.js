@@ -14,7 +14,5 @@ client.on("message", async message => {
         render(<PingCommand channel={message.channel} />, message.id);
     } else if (message.content.toLowerCase() === "reaction") {
         render(<ReactionCommand channel={message.channel}/>, message.id);
-    } else if (message.content.toLowerCase() === "c4") {
-        render(<Connect4Command channel={message.channel} />, message.id);
     }
 });

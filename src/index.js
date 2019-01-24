@@ -3,6 +3,7 @@ import { render } from './dom'
 import { client } from './client'
 import PingCommand from './components/PingCommand'
 import ReactionCommand from './components/ReactionCommand'
+import Connect4Command from './components/Connect4Command';
 
 client.on("ready", () => {
     console.log("Ready!");
@@ -13,5 +14,7 @@ client.on("message", async message => {
         render(<PingCommand channel={message.channel} />, message.id);
     } else if (message.content.toLowerCase() === "reaction") {
         render(<ReactionCommand channel={message.channel}/>, message.id);
+    } else if (message.content.toLowerCase() === "c4") {
+        render(<Connect4Command channel={message.channel} />, message.id);
     }
 });

@@ -38,12 +38,10 @@ class Message extends Component {
             
                 if (this.props.onReactionCollect) {
                     collector.on("collect", this.props.onReactionCollect);
-                    console.log("creating.")
                 }
                 
                 if (this.props.onReactionRemove) {
                     collector.on("remove", this.props.onReactionRemove);
-                    console.log("creating..")
                 }
             }
         }

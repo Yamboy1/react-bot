@@ -1,8 +1,8 @@
 {
-  "name": "dreact",
+  "name": "react-bot",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "lib/index.js",
   "dependencies": {
     "@babel/runtime": "^7.3.1",
     "discord.js": "github:discordjs/discord.js",
@@ -22,7 +22,7 @@
     "clean": "rm -Rf lib",
     "start": "npm run clean && npm run build && node lib/index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "keywords": ["discord", "bot", "react", "reactjs"],
+  "author": "Yamboy1",
+  "license": "MIT"
 }

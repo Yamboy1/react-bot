@@ -16,12 +16,12 @@ class Message extends Component {
     }
     async componentDidMount() {
         if (this.props.channel) {
-            const content = renderToStaticMarkup(<>
+            const content = htmlDecode(renderToStaticMarkup(<>
                 {React.Children.toArray(this.props.children)}
-            </>);
+            </>));
 
             this.setState({
-                message: await this.props.channel.send(htmlDecode(content))
+                message: await this.props.channel.send(content)
             });
 
         }

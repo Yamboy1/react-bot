@@ -1,5 +1,5 @@
 import { Client } from 'discord.js'
-import { token } from '../secrets.js'
+import { token } from './secrets.js'
 
 const client = new Client();
 

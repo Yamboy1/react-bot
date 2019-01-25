@@ -10,20 +10,23 @@ class Connect4Command extends Component {
         const matrix = [
             [0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0],
-            [0,0,0,2,0,0,0],
-            [0,0,0,2,0,0,0],
-            [0,0,0,2,0,0,0],
-            [1,1,1,2,0,0,0]
+            [0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0]
         ]
 
         this.state = {
-            matrix
+            matrix,
+            inputs: { 0: "1⃣", 1: "2⃣", 2: "3⃣", 3: "4⃣", 4: "5⃣", 5: "6⃣" }
         };
     }
     render() {
         return (
             <Command>
-                <Message channel={this.props.channel}>
+                <Message
+                    reactions={Object.values(this.state.inputs)}
+                    channel={this.props.channel}>
                     <GameBoard matrix={this.state.matrix} />
                 </Message>
             </Command>

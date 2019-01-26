@@ -23,7 +23,6 @@ class Message extends Component {
     }
     async componentDidMount() {
         try {
-
             if (this.props.channel) {
                 const content = htmlDecode(renderToStaticMarkup(<>
                     {React.Children.toArray(this.props.children)}
@@ -41,6 +40,9 @@ class Message extends Component {
                         await this.state.message.react(reaction);
                     });
                 }
+
+
+                this.props.onReactionsLoaded();
 
                 if (this.props.onReactionCollect || this.props.onReactionRemove) {
                     this.collector = this.state.message.createReactionCollector((_, user) => user !== client.user, { dispose: true });

@@ -8,53 +8,81 @@ class Message extends Component {
         super(props);
 
         this.state = {
-            message: null
+            message: null,
+            rejections: []
         }
+
+        this.throw = this.throw.bind(this);
     }
     render() {
-        return "";
+        return null;
+    }
+    throw(err) {
+        console.log("throwing error...");
+        throw err;
     }
     async componentDidMount() {
-        if (this.props.channel) {
-            const content = htmlDecode(renderToStaticMarkup(<>
-                {React.Children.toArray(this.props.children)}
-            </>)).trim();
+        try {
 
-            this.setState({
-                message: await this.props.channel.send(content)
-            });
+            if (this.props.channel) {
+                const content = htmlDecode(renderToStaticMarkup(<>
+                    {React.Children.toArray(this.props.children)}
+                </>)).trim();
 
-        }
-
-        if (this.state.message) {
-            if (this.props.reactions) {
-                this.props.reactions.forEach(async reaction => {
-                    await this.state.message.react(reaction);
+                this.setState({
+                    message: await this.props.channel.send(content)
                 });
+
             }
 
-            if (this.props.onReactionCollect || this.props.onReactionRemove) {
-                const collector = this.state.message.createReactionCollector((_, user) => user !== client.user, { dispose: true });
-            
-                if (this.props.onReactionCollect) {
-                    collector.on("collect", this.props.onReactionCollect);
+            if (this.state.message) {
+                if (this.props.reactions) {
+                    this.props.reactions.forEach(async reaction => {
+                        await this.state.message.react(reaction);
+                    });
                 }
+
+                if (this.props.onReactionCollect || this.props.onReactionRemove) {
+                    this.collector = this.state.message.createReactionCollector((_, user) => user !== client.user, { dispose: true });
                 
-                if (this.props.onReactionRemove) {
-                    collector.on("remove", this.props.onReactionRemove);
+                    if (this.props.onReactionCollect) {
+                        this.collector.on("collect", async (...args) => {
+                            await this.props.onReactionCollect(...args)
+                        });
+                    }
+                    
+                    if (this.props.onReactionRemove) {
+                        this.collector.on("remove", this.props.onReactionRemove);
+                    }
                 }
             }
+        } catch (e) {
+            this.setState(prev => ({
+                rejections: [...prev.rejections, e]
+            }));
         }
     }
-    async componentDidUpdate() {
+    componentDidUpdate() {
+        if (this.state.rejections.length > 0) {
+            const currentRejection = this.state.rejections[0]; 
+            this.setState(prev => ({
+                rejections: prev.rejections.slice(1)
+            }));
+            throw currentRejection;
+        }
         if (this.state.message) {
             const content = htmlDecode(renderToStaticMarkup(<>
                 {React.Children.toArray(this.props.children)}
             </>)).trim();
 
             if (content !== this.state.message.content) {
-                await this.state.message.edit(content);
+                this.state.message.edit(content);
             }
+        }
+    }
+    componentWillUnmount() {
+        if (this.collector) {
+            this.collector.removeAllListeners();
         }
     }
 }

@@ -4,25 +4,30 @@
   "description": "",
   "main": "lib/index.js",
   "dependencies": {
-    "@babel/runtime": "^7.3.1",
+    "@babel/runtime": "^7.5.5",
     "discord.js": "github:discordjs/discord.js",
-    "jsdom": "^13.1.0",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "jsdom": "^15.1.1",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
-    "@babel/plugin-transform-runtime": "^7.2.0",
-    "@babel/preset-react": "^7.0.0",
-    "@babel/preset-env": "^7.2.3"
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0"
   },
   "scripts": {
     "build": "babel src -d lib",
     "clean": "rm -Rf lib",
     "start": "npm run clean && npm run build && node lib/index.js"
   },
-  "keywords": ["discord", "bot", "react", "reactjs"],
+  "keywords": [
+    "discord",
+    "bot",
+    "react",
+    "reactjs"
+  ],
   "author": "Yamboy1",
   "license": "MIT"
 }
